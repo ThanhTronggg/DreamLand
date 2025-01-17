@@ -1,5 +1,6 @@
 package entity;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -53,4 +54,7 @@ public class NhanVien {
 
     @OneToMany(mappedBy = "nhanVien")
     private Set<HoaDon> hoaDons;
+=======
+public class NhanVien {
+>>>>>>> cdc27d90f630b870eb3a682d54b087a32b460ab2
 }
