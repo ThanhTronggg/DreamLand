@@ -39,11 +39,12 @@ public class HoaDon {
     @JoinColumn(name = "ma_nhan_vien")
     private NhanVien nhanVien;
 
-    @ManyToMany
-    @JoinTable(
-            name = "chi_tiet_hoa_don",
-            joinColumns = @JoinColumn(name = "ma_hoa_don"),
-            inverseJoinColumns = @JoinColumn(name = "ma_san_pham")
-    )
-    private Set<SanPham> danhSachSanPham;
+    @OneToMany(mappedBy = "hoaDon")
+    private Set<ChiTietHoaDon> danhSachChiTietHD;
+
+    @Column(name = "tongTien")
+    private double tongTien;
+
+    @OneToMany(mappedBy = "hoaDon")
+    private Set<Ve> danhSachVe;
 }

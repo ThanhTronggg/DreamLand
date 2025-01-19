@@ -10,6 +10,13 @@
     <class>entity.HoaDon</class>
     <class>entity.KhuyenMai</class>
     <class>entity.SanPham</class>
+    <class>entity.LoaiGhe</class>
+    <class>entity.Ghe</class>
+    <class>entity.Phim</class>
+    <class>entity.Phong</class>
+    <class>entity.LichChieu</class>
+    <class>entity.Ve</class>
+    <class>entity.ChiTietHoaDon</class>
     <properties>
       <property name="jakarta.persistence.jdbc.driver"
                 value="org.mariadb.jdbc.Driver" />
