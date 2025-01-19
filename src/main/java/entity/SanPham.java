@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @ToString
@@ -15,7 +17,7 @@ import lombok.ToString;
 public class SanPham {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "san_pham_id", nullable = false, unique = true)
+    @Column(name = "ma_san_pham", nullable = false, unique = true)
     @EqualsAndHashCode.Include
     private int maSanPham;
 
@@ -36,4 +38,7 @@ public class SanPham {
 
     @Column(columnDefinition = "float", name = "gia_ban")
     private double giaBan;
+
+    @ManyToMany(mappedBy = "danhSachSanPham")
+    private Set<HoaDon> danhSachHoaDon;
 }
