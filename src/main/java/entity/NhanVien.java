@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -52,4 +51,5 @@ public class NhanVien {
 
     @OneToMany(mappedBy = "nhanVien")
     private Set<HoaDon> hoaDons;
+
 }
