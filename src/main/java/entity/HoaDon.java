@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -38,4 +39,11 @@ public class HoaDon {
     @JoinColumn(name = "ma_nhan_vien")
     private NhanVien nhanVien;
 
+    @ManyToMany
+    @JoinTable(
+            name = "chi_tiet_hoa_don",
+            joinColumns = @JoinColumn(name = "ma_hoa_don"),
+            inverseJoinColumns = @JoinColumn(name = "ma_san_pham")
+    )
+    private Set<SanPham> danhSachSanPham;
 }

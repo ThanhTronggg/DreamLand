@@ -1,12 +1,9 @@
 package entity;
-
-<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -32,10 +29,10 @@ public class NhanVien {
     @Column(name = "ngay_sinh", columnDefinition = "date", nullable = false)
     private LocalDate ngaySinh;
 
-    @Column(columnDefinition = "varchar(255)",unique = true, nullable = false)
+    @Column(columnDefinition = "varchar(255)", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "so_dien_thoai", columnDefinition = "varchar(255)",unique = true, nullable = false)
+    @Column(name = "so_dien_thoai", columnDefinition = "varchar(255)", unique = true, nullable = false)
     private String soDienThoai;
 
     @Column(name = "vai_tro", columnDefinition = "varchar(255)", nullable = false)
@@ -54,7 +51,5 @@ public class NhanVien {
 
     @OneToMany(mappedBy = "nhanVien")
     private Set<HoaDon> hoaDons;
-=======
-public class NhanVien {
->>>>>>> cdc27d90f630b870eb3a682d54b087a32b460ab2
+
 }

@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class KhuyenMai {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "khuyen_mai_id", nullable = false, unique = true)
+    @Column(name = "ma_khuyen_mai", nullable = false, unique = true)
     @EqualsAndHashCode.Include
     private int maKhuyenMai;
 
