@@ -39,6 +39,6 @@ public class SanPham {
     @Column(columnDefinition = "float", name = "gia_ban")
     private double giaBan;
 
-    @ManyToMany(mappedBy = "danhSachSanPham")
-    private Set<HoaDon> danhSachHoaDon;
+    @OneToMany(mappedBy = "sanPham")
+    private Set<ChiTietHoaDon> danhSachChiTietHD;
 }

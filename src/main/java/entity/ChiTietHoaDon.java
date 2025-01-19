@@ -12,27 +12,24 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "chi_tiet_hoa_don")
-@IdClass(ChiTietHoaDonPK.class) // Chỉ định lớp làm khóa chính
 public class ChiTietHoaDon {
-    @Id
-    @Column(name = "ma_hoa_don", nullable = false)
-    private int maHoaDon;
 
-    @Id
-    @Column(name = "ma_san_pham", nullable = false)
-    private int maSanPham;
+    @EmbeddedId
+    private ChiTietHoaDonPK id;
 
     @ManyToOne
-    @JoinColumn(name = "ma_hoa_don", insertable = false, updatable = false) // Khóa ngoại tới HoaDon
+    @MapsId("hoaDon")
+    @JoinColumn(name = "ma_hoa_don", insertable = false, updatable = false)
     private HoaDon hoaDon;
 
     @ManyToOne
-    @JoinColumn(name = "ma_san_pham", insertable = false, updatable = false) // Khóa ngoại tới SanPham
+    @MapsId("sanPham")
+    @JoinColumn(name = "ma_san_pham", insertable = false, updatable = false)
     private SanPham sanPham;
 
     @Column(name = "so_luong", nullable = false)
     private int soLuong;
 
-    @Column(name = "gia_ban", nullable = false)
-    private double giaBan;
+    @Column(name = "thanh_tien", nullable = false)
+    private double thanhTien;
 }

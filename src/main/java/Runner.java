@@ -42,17 +42,6 @@ public class Runner {
             nhanVien.setTrangThai(faker.options().option("Active", "Inactive"));
             nhanVien.setHoaDons(new HashSet<>());
 
-            int hoaDonCount = faker.number().numberBetween(1, 4);
-            for (int k = 0; k < hoaDonCount; k++) {
-                HoaDon hoaDon = new HoaDon();
-                hoaDon.setNgayDat(LocalDate.now().minusDays(faker.number().numberBetween(1, 365)));
-                hoaDon.setSoGhe(faker.number().numberBetween(1, 100));
-                hoaDon.setGhiChu(faker.lorem().sentence());
-                hoaDon.setKhachHang(khachHang);
-                hoaDon.setNhanVien(nhanVien);
-
-                em.persist(hoaDon);
-            }
             TaiKhoan taiKhoan = new TaiKhoan();
             taiKhoan.setTaiKhoan(faker.name().username());
             taiKhoan.setMatKhau(faker.internet().password());
