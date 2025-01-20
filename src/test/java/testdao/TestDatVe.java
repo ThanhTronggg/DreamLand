@@ -1,8 +1,9 @@
+package testdao;
+
+import dao.*;
 import entity.*;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import net.datafaker.Faker;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,16 +11,44 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
-public class Main{
-    public static void main(String[] args) {
-        EntityManager em = Persistence.createEntityManagerFactory("mariadb").createEntityManager();
-        EntityTransaction tr = em.getTransaction();
+public class TestDatVe {
 
-        Faker faker = new Faker();
-        Random rand = new Random();
+    private GheDAO gheDAO;
+    private Phong phong;
+    private PhongDAO phongDAO;
+    private LoaiGheDAO loaiGheDAO;
+    private KhachHangDAO khachHangDAO;
+    private NhanVienDAO nhanVienDAO;
+    private TaiKhoanDAO taiKhoanDAO;
+    private PhimDAO phimDAO;
+    private SanPhamDAO sanPhamDAO;
+    private KhuyenMaiDAO khuyenMaiDAO;
+    private LichChieuDAO lichChieuDAO;
+    private VeDAO veDAO;
+    private HoaDonDAO hoaDonDAO;
+    private ChiTietHoaDonDAO chiTietHoaDonDAO;
+    private Faker faker;
+
+    @BeforeEach
+    void setUp() {
+        gheDAO = new GheDAO();
+        phongDAO = new PhongDAO();
+        loaiGheDAO = new LoaiGheDAO();
+        khachHangDAO = new KhachHangDAO();
+        nhanVienDAO = new NhanVienDAO();
+        taiKhoanDAO = new TaiKhoanDAO();
+        phimDAO = new PhimDAO();
+        loaiGheDAO = new LoaiGheDAO();
+        khuyenMaiDAO = new KhuyenMaiDAO();
+        lichChieuDAO = new LichChieuDAO();
+        hoaDonDAO = new HoaDonDAO();
+        sanPhamDAO = new SanPhamDAO();
+        veDAO = new VeDAO();
+        chiTietHoaDonDAO = new ChiTietHoaDonDAO();
+        faker = new Faker();
+        phong = new Phong();
 
         String[] events = {
                 "Tết Nguyên Đán",
@@ -49,20 +78,14 @@ public class Main{
             LoaiGhe loaiGhe = new LoaiGhe();
             loaiGhe.setTenLoaiGhe(tenLoaiGhe[i]);
             loaiGhe.setMoTaLoaiGhe(faker.lorem().sentence(20));
-
-            tr.begin();
-            em.persist(loaiGhe);
-            tr.commit();
+            loaiGheDAO.themLoaiGhe(loaiGhe);
         }
 
         for (int i = 0; i < 7; i++) { // Lặp qua các phòng (7 phòng)
-            Phong phong = new Phong();
             phong.setTenPhong("Phòng " + i);
             phong.setSoLuongGhe(192);
 
-            tr.begin();
-            em.persist(phong);
-            tr.commit();
+            phongDAO.themPhong(phong);
 
             for (char row = 'A'; row <= 'M'; row++) {
                 for (int col = 1; col <= 16; col++) {
@@ -71,23 +94,21 @@ public class Main{
                     String viTri = String.format("%c%02d", row, col);
 
                     if (row >= 'A' && row <= 'D') {
-                        ghe.setLoaiGhe(em.find(LoaiGhe.class, 1));
+                        ghe.setLoaiGhe(loaiGheDAO.timTheoMaLoaiGhe(1));
                     } else if (row >= 'E' && row <= 'L') {
-                        ghe.setLoaiGhe(em.find(LoaiGhe.class, 2));
+                        ghe.setLoaiGhe(loaiGheDAO.timTheoMaLoaiGhe(2));
                     } else if (row == 'M') {
                         if (col % 2 == 1) {
                             String viTriDoi = String.format("%c%02d-%02d", row, col, col + 1);
-                            ghe.setLoaiGhe(em.find(LoaiGhe.class, 3));
+                            ghe.setLoaiGhe(loaiGheDAO.timTheoMaLoaiGhe(3));
                             ghe.setViTri(viTriDoi);
 
                             Ghe gheDoi = new Ghe();
-                            gheDoi.setLoaiGhe(em.find(LoaiGhe.class, 3));
+                            gheDoi.setLoaiGhe(loaiGheDAO.timTheoMaLoaiGhe(3));
                             gheDoi.setViTri(viTriDoi);
                             gheDoi.setPhong(phong);
 
-                            tr.begin();
-                            em.persist(gheDoi);
-                            tr.commit();
+                            gheDAO.themGhe(gheDoi);
                         }
                         continue;
                     }
@@ -95,9 +116,7 @@ public class Main{
                     ghe.setPhong(phong);
                     ghe.setViTri(viTri);
 
-                    tr.begin();
-                    em.persist(ghe);
-                    tr.commit();
+                    gheDAO.themGhe(ghe);
                 }
             }
         }
@@ -126,14 +145,9 @@ public class Main{
             taiKhoan.setMatKhau(faker.internet().password());
             taiKhoan.setNhanVien(nhanVien);
 
-            tr.begin();
-
-            em.persist(khachHang);
-            em.persist(nhanVien);
-            em.persist(taiKhoan);
-
-            tr.commit();
-
+            khachHangDAO.themKhachHang(khachHang);
+            nhanVienDAO.themNhanVien(nhanVien);
+            taiKhoanDAO.themTaiKhoan(taiKhoan);
         }
 
         for (int i = 0; i < 100; i++) {
@@ -178,15 +192,13 @@ public class Main{
             phim.setTrailer(faker.internet().url());
             phim.setTomTat(faker.lorem().sentence(20));
 
-            tr.begin();
-            em.persist(phim);
-            em.persist(sp);
-            em.persist(km);
-            tr.commit();
+            phimDAO.themPhim(phim);
+            sanPhamDAO.themSanPham(sp);
+            khuyenMaiDAO.themKhuyenMai(km);
         }
 
-        List<Phim> danhSachPhim = em.createQuery("SELECT p FROM Phim p", Phim.class).getResultList();
-        List<Phong> danhSachPhong = em.createQuery("SELECT p FROM Phong p", Phong.class).getResultList();
+        List<Phim> danhSachPhim = phimDAO.getDanhSachPhim();
+        List<Phong> danhSachPhong = phongDAO.getDanhSachPhong();
 
         for (int i = 0; i < 100; i++) {
             Phim phim = danhSachPhim.get(faker.random().nextInt(danhSachPhim.size()));
@@ -203,101 +215,86 @@ public class Main{
             lichChieu.setPhim(phim);
             lichChieu.setPhong(phong);
 
-            tr.begin();
-            em.persist(lichChieu);
-            tr.commit();
+            lichChieuDAO.themLichChieu(lichChieu);
+        }
+    }
+
+    @Test
+    void TestThemHoaDon() {
+        List<NhanVien> danhSachNhanVien = nhanVienDAO.getDanhSachNhanVien();
+        List<KhachHang> danhSachKhachHang = khachHangDAO.getDanhSachKhachHang();
+        List<LichChieu> danhSachLichChieu = lichChieuDAO.getDanhSachLichChieu();
+        List<SanPham> danhSachSanPham = sanPhamDAO.getDanhSachSanPham();
+        NhanVien nhanVien = danhSachNhanVien.get(faker.random().nextInt(danhSachNhanVien.size()));
+        KhachHang khachHang = danhSachKhachHang.get(faker.random().nextInt(danhSachKhachHang.size()));
+        LichChieu lichChieu = danhSachLichChieu.get(faker.random().nextInt(danhSachLichChieu.size()));
+        HoaDon hoaDon = new HoaDon();
+
+        hoaDon.setNgayDat(faker.date().past(30, java.util.concurrent.TimeUnit.DAYS).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+        hoaDon.setSoGhe(faker.number().numberBetween(1, 5));  // Số lượng ghế ngẫu nhiên
+        hoaDon.setGhiChu(faker.lorem().sentence());
+        hoaDon.setNhanVien(nhanVien);
+        hoaDon.setKhachHang(khachHang);
+        Set<ChiTietHoaDon> danhSachCTHD = new HashSet<>();
+        for (int j = 0; j < 3; j++) {  // Giả sử mỗi hóa đơn có 3 sản phẩm
+            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+            chiTietHoaDon.setHoaDon(hoaDon);
+            chiTietHoaDon.setSanPham(danhSachSanPham.get(faker.random().nextInt(danhSachSanPham.size())));
+            chiTietHoaDon.setSoLuong(faker.number().numberBetween(1, 5));
+            chiTietHoaDon.setThanhTien(chiTietHoaDon.getSoLuong()*chiTietHoaDon.getSanPham().getGiaBan());
+            System.out.println(chiTietHoaDon);
+            danhSachCTHD.add(chiTietHoaDon);
+        }
+        Set<Ve> danhSachVe = new HashSet<>();
+        int numTickets = faker.random().nextInt(1, 4);  // Random number between 1 and 3
+        for (int j = 0; j < numTickets; j++) {
+            Ve ve = new Ve();
+            ve.setLichChieu(lichChieu);
+            ve.setNgayPhatHanh(lichChieu.getGioBatDau().toLocalDate());
+
+            List<Ghe> danhSachGhe = gheDAO.getDanhSachGheTheoPhong(lichChieu.getPhong());
+
+            Ghe selectedGhe = danhSachGhe.get(faker.random().nextInt(danhSachGhe.size()));
+            ve.setGhe(selectedGhe);
+            veDAO.themVe(ve);
+            danhSachVe.add(ve);
         }
 
-        List<NhanVien> danhSachNhanVien = em.createQuery("SELECT nv FROM NhanVien nv", NhanVien.class).getResultList();
-        List<KhachHang> danhSachKhachHang = em.createQuery("SELECT kh FROM KhachHang kh", KhachHang.class).getResultList();
-        List<LichChieu> danhSachLichChieu = em.createQuery("SELECT lc FROM LichChieu lc", LichChieu.class).getResultList();
-        List<SanPham> danhSachSanPham = em.createQuery("SELECT sp FROM SanPham sp", SanPham.class).getResultList();
+        hoaDon.setDanhSachChiTietHD(danhSachCTHD);
+        hoaDon.setDanhSachVe(danhSachVe);
 
-        for (int i = 0; i < 100; i++) {
-            NhanVien nhanVien = danhSachNhanVien.get(faker.random().nextInt(danhSachNhanVien.size()));
-            KhachHang khachHang = danhSachKhachHang.get(faker.random().nextInt(danhSachKhachHang.size()));
-            LichChieu lichChieu = danhSachLichChieu.get(faker.random().nextInt(danhSachLichChieu.size()));
-            HoaDon hoaDon = new HoaDon();
-
-            hoaDon.setNgayDat(faker.date().past(30, java.util.concurrent.TimeUnit.DAYS).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
-            hoaDon.setSoGhe(faker.number().numberBetween(1, 5));  // Số lượng ghế ngẫu nhiên
-            hoaDon.setGhiChu(faker.lorem().sentence());
-            hoaDon.setNhanVien(nhanVien);
-            hoaDon.setKhachHang(khachHang);
-            Set<ChiTietHoaDon> danhSachCTHD = new HashSet<>();
-            for (int j = 0; j < 3; j++) {  // Giả sử mỗi hóa đơn có 3 sản phẩm
-                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-                chiTietHoaDon.setHoaDon(hoaDon);
-                chiTietHoaDon.setSanPham(danhSachSanPham.get(faker.random().nextInt(danhSachSanPham.size())));
-                chiTietHoaDon.setSoLuong(faker.number().numberBetween(1, 5));
-                chiTietHoaDon.setThanhTien(chiTietHoaDon.getSoLuong()*chiTietHoaDon.getSanPham().getGiaBan());
-                System.out.println(chiTietHoaDon);
-                danhSachCTHD.add(chiTietHoaDon);
+        double tongTienVe = 0;
+        for (Ve ve : danhSachVe) {
+            if (ve.getGhe().getLoaiGhe().getTenLoaiGhe() == "Ghế thường") {
+                tongTienVe += ve.getLichChieu().getGiaMotGhe();
             }
-            Set<Ve> danhSachVe = new HashSet<>();
-            int numTickets = faker.random().nextInt(1, 4);  // Random number between 1 and 3
-            for (int j = 0; j < numTickets; j++) {
-                Ve ve = new Ve();
-                ve.setLichChieu(lichChieu);
-                ve.setNgayPhatHanh(lichChieu.getGioBatDau().toLocalDate());
-
-                List<Ghe> danhSachGhe = em.createQuery("SELECT ghe FROM Ghe ghe where phong = :phong", Ghe.class)
-                        .setParameter("phong", lichChieu.getPhong())
-                        .getResultList();
-
-                Ghe selectedGhe = danhSachGhe.get(faker.random().nextInt(danhSachGhe.size()));
-                ve.setGhe(selectedGhe);
-                tr.begin();
-                em.persist(ve);
-                tr.commit();
-                danhSachVe.add(ve);
+            else if (ve.getGhe().getLoaiGhe().getTenLoaiGhe() == "Ghế VIP"){
+                tongTienVe += ve.getLichChieu().getGiaMotGhe()*1.5;
             }
-
-            hoaDon.setDanhSachChiTietHD(danhSachCTHD);
-            hoaDon.setDanhSachVe(danhSachVe);
-
-            double tongTienVe = 0;
-            for (Ve ve : danhSachVe) {
-                if (ve.getGhe().getLoaiGhe().getTenLoaiGhe() == "Ghế thường") {
-                    tongTienVe += ve.getLichChieu().getGiaMotGhe();
-                }
-                else if (ve.getGhe().getLoaiGhe().getTenLoaiGhe() == "Ghế VIP"){
-                    tongTienVe += ve.getLichChieu().getGiaMotGhe()*1.5;
-                }
-                else {
-                    tongTienVe += ve.getLichChieu().getGiaMotGhe() * 2;
-                }
+            else {
+                tongTienVe += ve.getLichChieu().getGiaMotGhe() * 2;
             }
-            double tongTienSanPham = 0;
-            for (ChiTietHoaDon ct : hoaDon.getDanhSachChiTietHD()) {
-                tongTienSanPham += ct.getThanhTien();
-            }
-            hoaDon.setTongTien(tongTienVe + tongTienSanPham);
+        }
+        double tongTienSanPham = 0;
+        for (ChiTietHoaDon ct : hoaDon.getDanhSachChiTietHD()) {
+            tongTienSanPham += ct.getThanhTien();
+        }
+        hoaDon.setTongTien(tongTienVe + tongTienSanPham);
 
-            tr.begin();
+        hoaDonDAO.themHoaDon(hoaDon);
 
-            em.persist(hoaDon);
+        for (Ve ve : danhSachVe) {
+            ve.setHoaDon(hoaDon);
+            veDAO.capNhatVe(ve);
+        }
 
-            tr.commit();
+        for (ChiTietHoaDon ct : hoaDon.getDanhSachChiTietHD()) {
+            ChiTietHoaDonPK chiTietHoaDonPK = new ChiTietHoaDonPK();
+            chiTietHoaDonPK.setHoaDon(hoaDon); // Gán HoaDon
+            chiTietHoaDonPK.setSanPham(ct.getSanPham()); // Gán SanPham
 
-            for (Ve ve : danhSachVe) {
-                ve.setHoaDon(hoaDon);
-                tr.begin();
-                em.persist(ve);
-                tr.commit();
-            }
-
-            for (ChiTietHoaDon ct : hoaDon.getDanhSachChiTietHD()) {
-                ChiTietHoaDonPK chiTietHoaDonPK = new ChiTietHoaDonPK();
-                chiTietHoaDonPK.setHoaDon(hoaDon); // Gán HoaDon
-                chiTietHoaDonPK.setSanPham(ct.getSanPham()); // Gán SanPham
-
-                ct.setId(chiTietHoaDonPK);
-                tr.begin();
-                em.persist(ct);
-                tr.commit();
-            }
-
+            ct.setId(chiTietHoaDonPK);
+            chiTietHoaDonDAO.themChiTietHoaDon(ct);
         }
     }
 }
