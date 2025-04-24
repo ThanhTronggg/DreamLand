@@ -1,9 +1,6 @@
 package entity;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -13,14 +10,16 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "phim")
 public class Phim {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "phim_seq", sequenceName = "PhimSequence", allocationSize = 1)
     @Column(name = "ma_phim", nullable = false, unique = true)
     @EqualsAndHashCode.Include
-    private int maPhim;
+    private String maPhim;
 
     @Column(columnDefinition = "varchar(255)", nullable = false, name = "ten_phim")
     private String tenPhim;
@@ -62,5 +61,6 @@ public class Phim {
     private String tomTat;
 
     @OneToMany(mappedBy = "phim")
+    @ToString.Exclude
     private Set<LichChieu> danhSachLichChieu;
 }

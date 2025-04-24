@@ -1,14 +1,12 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Setter
 @Getter
 @ToString
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "chi_tiet_hoa_don")
@@ -32,4 +30,14 @@ public class ChiTietHoaDon {
 
     @Column(name = "thanh_tien", nullable = false)
     private double thanhTien;
+
+    public ChiTietHoaDon(int soLuong, HoaDon hoaDon, SanPham sanPham) {
+        this.soLuong = soLuong;
+        this.hoaDon = hoaDon;
+        this.sanPham = sanPham;
+    }
+
+    public ChiTietHoaDon() {
+
+    }
 }

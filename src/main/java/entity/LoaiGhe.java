@@ -1,33 +1,32 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
 @Setter
 @Getter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "loai_ghe")
 public class LoaiGhe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ma_loai_ghe", nullable = false, unique = true)
+    @Column(name = "ma_loai_ghe", length = 6, nullable = false, unique = true)
     @EqualsAndHashCode.Include
-    private int maLoaiGhe;
+    private String maLoaiGhe;
 
-    @Column(columnDefinition = "varchar(255)", nullable = false, name = "ten_loai_ghe", unique = true)
+    @Column(name = "ten_loai_ghe", columnDefinition = "NVARCHAR(50)", nullable = false)
     private String tenLoaiGhe;
 
-    @Column(columnDefinition = "varchar(255)", nullable = false, name = "mo_ta_loai_ghe")
+    @Column(name = "mo_ta_loai_ghe", columnDefinition = "NVARCHAR(500)", nullable = true)
     private String moTaLoaiGhe;
 
     @OneToMany(mappedBy = "loaiGhe")
+    @ToString.Exclude
     private Set<Ghe> danhSachGhe;
 }

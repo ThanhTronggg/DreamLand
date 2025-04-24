@@ -3,6 +3,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import net.datafaker.Faker;
+import util.JPAUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,7 +16,7 @@ import java.util.Set;
 
 public class Main{
     public static void main(String[] args) {
-        EntityManager em = Persistence.createEntityManagerFactory("mariadb").createEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tr = em.getTransaction();
 
         Faker faker = new Faker();
@@ -144,7 +145,7 @@ public class Main{
             km.setTenKhuyenMai(faker.options().option(events));
             km.setNgayBatDau(LocalDate.now().minusDays(faker.random().nextInt(1, 30)));
             km.setNgayKetThuc(LocalDate.now().plusDays(faker.random().nextInt(1, 30)));
-            km.setPhamTramKhuyenMai(faker.random().nextDouble(0.1, 0.5));
+            km.setPhanTramKhuyenMai(faker.random().nextDouble(0.1, 0.5));
             km.setTongHoaDonToiThieu(faker.random().nextDouble(100000, 2000000));
 
             sp.setLoaiSanPham(faker.options().option("Đồ ăn", "Nước uống"));
