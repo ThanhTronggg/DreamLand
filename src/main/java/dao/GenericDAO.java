@@ -19,6 +19,10 @@ public abstract class GenericDAO<T, ID> {
         this.cls = cls;
     }
 
+    public List<T> getAll() {
+        return em.createQuery("from " + cls.getSimpleName(), cls).getResultList();
+    }
+
     public boolean add(T t) {
         EntityTransaction tr = em.getTransaction();
         try {

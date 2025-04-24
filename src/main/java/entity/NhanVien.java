@@ -1,9 +1,7 @@
 package entity;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -11,14 +9,16 @@ import java.util.Set;
 @Getter
 @ToString
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "nhan_vien")
 public class NhanVien {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "nhanvien_seq", sequenceName = "NhanVienSequence", allocationSize = 1)
     @Column(name = "ma_nhan_vien", nullable = false, unique = true)
     @EqualsAndHashCode.Include
-    private int maNhanVien;
+    private String maNhanVien;
 
     @Column(name = "ho_ten", columnDefinition = "varchar(255)", nullable = false)
     private String hoTen;

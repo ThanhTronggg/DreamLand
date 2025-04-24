@@ -1,10 +1,7 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
@@ -13,13 +10,15 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "san_pham")
 public class SanPham {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "sanpham_seq", sequenceName = "SanPhamSequence", allocationSize = 1)
     @Column(name = "ma_san_pham", nullable = false, unique = true)
     @EqualsAndHashCode.Include
-    private int maSanPham;
+    private String maSanPham;
 
     @Column(columnDefinition = "varchar(255)", name = "ten_san_pham")
     private String tenSanPham;
@@ -41,4 +40,8 @@ public class SanPham {
 
     @OneToMany(mappedBy = "sanPham")
     private Set<ChiTietHoaDon> danhSachChiTietHD;
+
+    public void dinhGiaBan() {
+        this.giaBan = giaMua*2;
+    }
 }
