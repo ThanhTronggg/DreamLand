@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class PhongDAO extends GenericDAO<Phong, String>{
 
+
     public PhongDAO(EntityManager em, Class<Phong> cls) {
         super(em, cls);
     }

@@ -16,6 +16,7 @@ import java.util.List;
 
 public class LichChieuDAO extends GenericDAO<LichChieu, String>{
 
+
     public LichChieuDAO(EntityManager em, Class<LichChieu> cls) {
         super(em, cls);
     }

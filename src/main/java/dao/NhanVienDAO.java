@@ -13,6 +13,7 @@ import java.util.List;
 
 public class NhanVienDAO extends GenericDAO<NhanVien, String> {
 
+
     public NhanVienDAO(EntityManager em, Class<NhanVien> cls) {
         super(em, cls);
     }

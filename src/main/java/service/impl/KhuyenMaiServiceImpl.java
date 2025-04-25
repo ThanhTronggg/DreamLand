@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 
 public class KhuyenMaiServiceImpl extends GenericServiceImpl<KhuyenMai, String> implements service.KhuyenMaiService {
 
+
     protected KhuyenMaiDAO khuyenMaiDAO;
 
     public KhuyenMaiServiceImpl(KhuyenMaiDAO khuyenMaiDAO) throws RemoteException {

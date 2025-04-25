@@ -12,6 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class LoaiGheDAO extends GenericDAO<LoaiGhe,String>{
 
+
     public LoaiGheDAO(EntityManager em, Class<LoaiGhe> cls) {
         super(em, cls);
     }

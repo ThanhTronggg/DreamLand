@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 
 public class LoaiGheServiceImpl extends GenericServiceImpl<LoaiGhe, String> implements service.LoaiGheService {
 
+
     protected LoaiGheDAO loaiGheDAO;
 
     public LoaiGheServiceImpl(LoaiGheDAO loaiGheDAO) throws RemoteException {

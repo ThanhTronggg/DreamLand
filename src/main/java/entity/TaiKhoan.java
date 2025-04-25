@@ -16,6 +16,7 @@ import java.util.List;
 public class TaiKhoan {
     @Id
     @Column(name = "ID")
+    @SequenceGenerator(name = "taikhoan_seq", sequenceName = "TaiKhoanSequence", allocationSize = 1)
     @EqualsAndHashCode.Include
     private String id;
 

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class GheServiceImpl extends GenericServiceImpl<Ghe, String> implements service.GheService {
 
+
     protected GheDAO gheDAO;
 
     public GheServiceImpl(GheDAO gheDAO) throws RemoteException {

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class HoaDonDAO extends GenericDAO<HoaDon, String> {
 
+
     public HoaDonDAO(EntityManager em, Class<HoaDon> cls) {
         super(em, cls);
     }

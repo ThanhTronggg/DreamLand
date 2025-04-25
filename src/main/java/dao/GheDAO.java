@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class GheDAO extends GenericDAO<Ghe, String> {
 
+
     public GheDAO(Class<Ghe> cls) { super(cls); }
 
     public GheDAO(EntityManager em, Class<Ghe> cls) { super(em, cls);}

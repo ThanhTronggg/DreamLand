@@ -90,7 +90,6 @@ public class Main2 {
             em.flush();
             tr.commit();
 
-
             String[] anhList = {
                     "images/venom_keo_cuoi.jpg",
                     "images/co_dau_hao_mon.jpg",
@@ -460,6 +459,7 @@ public class Main2 {
                 // Lưu ChiTietHoaDon
                 danhSachCTHD.forEach(cthd -> {
                     ChiTietHoaDonPK pk = new ChiTietHoaDonPK(hoaDon, cthd.getSanPham());
+
                     cthd.setId(pk);
                     em.persist(cthd);
                 });

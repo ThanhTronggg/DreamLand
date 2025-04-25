@@ -13,6 +13,7 @@ import java.util.List;
 
 public class SanPhamDAO extends GenericDAO<SanPham, String>{
 
+
     public SanPhamDAO(EntityManager em, Class<SanPham> cls) {
         super(em, cls);
     }

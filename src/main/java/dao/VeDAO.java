@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VeDAO extends GenericDAO<Ve, String>{
+
     public VeDAO(EntityManager em, Class<Ve> cls) {
         super(em, cls);
     }
@@ -50,7 +51,8 @@ public class VeDAO extends GenericDAO<Ve, String>{
 
         // Test getVeTheoLichChieu
         System.out.println("=== Kiểm tra getVeTheoLichChieu ===");
-        LichChieu lichChieu = lichChieuDAO.findById("LC000081   "); // Giả định lịch chiếu tồn tại
+        LichChieu lichChieu = lichChieuDAO.findById("LC000081"); // Giả định lịch chiếu tồn tại
+
         ArrayList<Ve> dsVe = veDAO.getVeTheoLichChieu(lichChieu);
         System.out.println("Vé cho lịch chiếu LC001: " + dsVe.size() + " vé");
         dsVe.forEach(System.out::println);

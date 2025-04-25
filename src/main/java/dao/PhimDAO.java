@@ -14,6 +14,7 @@ import java.util.List;
 
 public class PhimDAO extends GenericDAO<Phim, String> {
 
+
     public PhimDAO(EntityManager em, Class<Phim> cls) {
         super(em, cls);
     }

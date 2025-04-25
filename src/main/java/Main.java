@@ -303,6 +303,7 @@ public class Main{
 
             for (ChiTietHoaDon ct : hoaDon.getDanhSachChiTietHD()) {
                 ChiTietHoaDonPK chiTietHoaDonPK = new ChiTietHoaDonPK(hoaDon, ct.getSanPham());
+
                 ct.setId(chiTietHoaDonPK);
                 tr.begin();
                 em.persist(ct);
