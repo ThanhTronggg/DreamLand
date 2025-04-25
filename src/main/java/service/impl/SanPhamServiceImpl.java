@@ -7,7 +7,7 @@ import entity.SanPham;
 
 import java.rmi.RemoteException;
 
-public class SanPhamServiceImpl extends GenericServiceImpl<SanPham, Integer> implements service.SanPhamService {
+public class SanPhamServiceImpl extends GenericServiceImpl<SanPham, String> implements service.SanPhamService {
 
     protected SanPhamDAO sanPhamDAO;
 

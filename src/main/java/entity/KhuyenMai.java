@@ -36,6 +36,7 @@ public class KhuyenMai {
     private double tongHoaDonToiThieu;
 
     @OneToMany(mappedBy = "khuyenMai")
+    @ToString.Exclude
     private Set<HoaDon> hoaDons;
 
     public KhuyenMai(String tenKhuyenMai, LocalDate ngayBatDau, LocalDate ngayKetThuc, double phanTramKhuyenMai, double tongHoaDonToiThieu) {

@@ -90,6 +90,40 @@ public class Main2 {
             em.flush();
             tr.commit();
 
+
+            String[] anhList = {
+                    "images/venom_keo_cuoi.jpg",
+                    "images/co_dau_hao_mon.jpg",
+                    "images/elli_va_tau_ma.jpg",
+                    "images/ngay_xua_co_mot_chuyen_tinh.jpg",
+                    "images/mufasa_vua_su_tu.jpg",
+                    "images/thien_duong_qua_bao.jpg",
+                    "images/godzilla_minus_one.jpg",
+                    "images/doi_ban_hoc_yeu.jpg",
+                    "images/tee_yod_quy_an_tang_phan_2.jpg",
+                    "images/tro_choi_nhan_tinh.jpg"
+            };
+
+            List<String> anhDoAn = Arrays.asList(
+                    "images/bap_rang_bo.jpg",
+                    "images/combo_bap_nuoc.png",
+                    "images/baprangbo.jpg",
+                    "images/bapranglon.jpg",
+                    "images/bapthuong.jpg"
+            );
+
+            // Danh sách ảnh cho Nước uống
+            List<String> anhNuocUong = Arrays.asList(
+                    "images/coca_cola.png",
+                    "images/aquafina.jpg",
+                    "images/pepsi.png",
+                    "images/nuocsuoi.jpg",
+                    "images/fanta.jpg"
+            );
+
+            String[] foods = {"Bắp rang bơ", "Combo Bắp nước", "Bắp Thường"};
+            String[] drinks = {"Nước ngọt Coca-Cola", "Nước suối Aquafina", "Pepsi"};
+
             // 1. Tạo hoặc sử dụng LoaiGhe hiện có
             System.out.println("Tạo hoặc sử dụng LoaiGhe...");
             tr.begin();
@@ -279,7 +313,13 @@ public class Main2 {
                 double giaMua = faker.random().nextDouble(10000, 30000);
                 sp.setGiaMua(giaMua);
                 sp.setGiaBan(giaMua * 1.5);
-                sp.setAnh(faker.internet().url());
+                if ("Đồ ăn".equals(loaiSanPham)) {
+                    sp.setTenSanPham(faker.options().option(foods));
+                    sp.setAnh(faker.options().option(anhDoAn.toArray(new String[0])));
+                } else {
+                    sp.setTenSanPham(faker.options().option(drinks));
+                    sp.setAnh(faker.options().option(anhNuocUong.toArray(new String[0])));
+                }
 
                 Phim phim = new Phim();
                 phim.setMaPhim(getNextSequenceValue(em, "PhimSequence", "P", 3));
@@ -295,7 +335,7 @@ public class Main2 {
                 phim.setNgayBatDau(faker.date().past(10, java.util.concurrent.TimeUnit.DAYS)
                         .toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 phim.setGiaThau(faker.number().randomDouble(2, 50000, 200000));
-                phim.setAnh(faker.internet().url());
+                phim.setAnh(faker.options().option(anhList));
                 phim.setTrailer(faker.internet().url());
                 phim.setTomTat(faker.lorem().sentence(20));
 
@@ -419,9 +459,7 @@ public class Main2 {
 
                 // Lưu ChiTietHoaDon
                 danhSachCTHD.forEach(cthd -> {
-                    ChiTietHoaDonPK pk = new ChiTietHoaDonPK();
-                    pk.setHoaDon(hoaDon);
-                    pk.setSanPham(cthd.getSanPham());
+                    ChiTietHoaDonPK pk = new ChiTietHoaDonPK(hoaDon, cthd.getSanPham());
                     cthd.setId(pk);
                     em.persist(cthd);
                 });

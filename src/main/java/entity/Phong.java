@@ -28,8 +28,10 @@ public class Phong {
     private int soLuongGhe;
 
     @OneToMany(mappedBy = "phong")
+    @ToString.Exclude
     private Set<Ghe> danhSachGhe;
 
     @OneToMany(mappedBy = "phong")
+    @ToString.Exclude
     private Set<LichChieu> danhSachLichChieu;
 }

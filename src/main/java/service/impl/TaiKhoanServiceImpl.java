@@ -7,7 +7,7 @@ import entity.TaiKhoan;
 
 import java.rmi.RemoteException;
 
-public class TaiKhoanServiceImpl extends GenericServiceImpl<TaiKhoan, Integer> implements service.TaiKhoanService {
+public class TaiKhoanServiceImpl extends GenericServiceImpl<TaiKhoan, String> implements service.TaiKhoanService {
 
     protected TaiKhoanDAO taiKhoanDAO;
 

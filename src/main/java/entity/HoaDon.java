@@ -42,6 +42,7 @@ public class HoaDon {
     private NhanVien nhanVien;
 
     @OneToMany(mappedBy = "hoaDon")
+    @ToString.Exclude
     private Set<ChiTietHoaDon> danhSachChiTietHD;
 
     @Column(name = "tongTien")
@@ -55,6 +56,7 @@ public class HoaDon {
     private double VAT;
 
     @OneToMany(mappedBy = "hoaDon")
+    @ToString.Exclude
     private Set<Ve> danhSachVe;
 
     public void setTongTien(ArrayList<ChiTietHoaDon> dschiTietHD, ArrayList<Ghe> dsVe, LichChieu lichChieu) {

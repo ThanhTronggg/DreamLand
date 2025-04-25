@@ -7,7 +7,7 @@ import entity.Phim;
 
 import java.rmi.RemoteException;
 
-public class LichChieuServiceImpl extends GenericServiceImpl<LichChieu, Integer> implements service.LichChieuService {
+public class LichChieuServiceImpl extends GenericServiceImpl<LichChieu, String> implements service.LichChieuService {
 
     protected LichChieuDAO lichChieuDAO;
 

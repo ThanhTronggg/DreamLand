@@ -7,7 +7,7 @@ import entity.Phim;
 
 import java.rmi.RemoteException;
 
-public class NhanVienServiceImpl extends GenericServiceImpl<NhanVien, Integer> implements service.NhanVienService {
+public class NhanVienServiceImpl extends GenericServiceImpl<NhanVien, String> implements service.NhanVienService {
 
     protected NhanVienDAO nhanVienDAO;
 

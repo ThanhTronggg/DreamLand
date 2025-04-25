@@ -18,11 +18,13 @@ public class ChiTietHoaDon {
     @ManyToOne
     @MapsId("hoaDon")
     @JoinColumn(name = "ma_hoa_don", insertable = false, updatable = false)
+    @ToString.Exclude
     private HoaDon hoaDon;
 
     @ManyToOne
     @MapsId("sanPham")
     @JoinColumn(name = "ma_san_pham", insertable = false, updatable = false)
+    @ToString.Exclude
     private SanPham sanPham;
 
     @Column(name = "so_luong", nullable = false)

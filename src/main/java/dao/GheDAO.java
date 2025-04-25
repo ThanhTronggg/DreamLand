@@ -8,7 +8,7 @@ import util.JPAUtil;
 
 import java.util.ArrayList;
 
-public class GheDAO extends GenericDAO<Ghe, Integer> {
+public class GheDAO extends GenericDAO<Ghe, String> {
 
     public GheDAO(Class<Ghe> cls) { super(cls); }
 

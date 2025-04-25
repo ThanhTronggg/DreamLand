@@ -15,7 +15,6 @@ import java.util.Set;
 @Table(name = "san_pham")
 public class SanPham {
     @Id
-    @SequenceGenerator(name = "sanpham_seq", sequenceName = "SanPhamSequence", allocationSize = 1)
     @Column(name = "ma_san_pham", nullable = false, unique = true)
     @EqualsAndHashCode.Include
     private String maSanPham;
@@ -39,6 +38,7 @@ public class SanPham {
     private double giaBan;
 
     @OneToMany(mappedBy = "sanPham")
+    @ToString.Exclude
     private Set<ChiTietHoaDon> danhSachChiTietHD;
 
     public void dinhGiaBan() {

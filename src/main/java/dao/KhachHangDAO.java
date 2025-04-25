@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KhachHangDAO extends GenericDAO<KhachHang, Integer> {
+public class KhachHangDAO extends GenericDAO<KhachHang, String> {
     public KhachHangDAO(EntityManager em, Class<KhachHang> cls) {
         super(em, cls);
     }

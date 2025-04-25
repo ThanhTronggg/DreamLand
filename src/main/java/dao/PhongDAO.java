@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class PhongDAO extends GenericDAO<Phong, Integer>{
+public class PhongDAO extends GenericDAO<Phong, String>{
 
     public PhongDAO(EntityManager em, Class<Phong> cls) {
         super(em, cls);

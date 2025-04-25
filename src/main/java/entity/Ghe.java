@@ -25,6 +25,7 @@ public class Ghe {
 
     @ManyToOne
     @JoinColumn(name = "ma_loai_ghe")
+    @ToString.Exclude
     private LoaiGhe loaiGhe;
 
     @ManyToOne

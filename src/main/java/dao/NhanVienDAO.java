@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NhanVienDAO extends GenericDAO<NhanVien, Integer> {
+public class NhanVienDAO extends GenericDAO<NhanVien, String> {
 
     public NhanVienDAO(EntityManager em, Class<NhanVien> cls) {
         super(em, cls);

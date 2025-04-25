@@ -7,7 +7,7 @@ import entity.Ve;
 
 import java.rmi.RemoteException;
 
-public class VeServiceImpl extends GenericServiceImpl<Ve, Integer> implements service.VeService {
+public class VeServiceImpl extends GenericServiceImpl<Ve, String> implements service.VeService {
 
     protected VeDAO veDAO;
 

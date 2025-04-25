@@ -44,6 +44,19 @@ public class Main{
                 "Tiếng Việt",
                 "Tiếng Nga"
         };
+
+        String[] anhList = {
+                "images/venom_keo_cuoi.jpg",
+                "images/co_dau_hao_mon.jpg",
+                "images/elli_va_tau_ma.jpg",
+                "images/ngay_xua_co_mot_chuyen_tinh.jpg",
+                "images/mufasa_vua_su_tu.jpg",
+                "images/thien_duong_qua_bao.jpg",
+                "images/godzilla_minus_one.jpg",
+                "images/doi_ban_hoc_yeu.jpg",
+                "images/tee_yod_quy_an_tang_phan_2.jpg",
+                "images/tro_choi_nhan_tinh.jpg"
+        };
         String[] tenLoaiGhe = {"Ghế thường", "Ghế VIP", "Ghế đôi SweetBox"};
 
         for (int i = 0; i < 3; i++) {
@@ -289,10 +302,7 @@ public class Main{
             }
 
             for (ChiTietHoaDon ct : hoaDon.getDanhSachChiTietHD()) {
-                ChiTietHoaDonPK chiTietHoaDonPK = new ChiTietHoaDonPK();
-                chiTietHoaDonPK.setHoaDon(hoaDon); // Gán HoaDon
-                chiTietHoaDonPK.setSanPham(ct.getSanPham()); // Gán SanPham
-
+                ChiTietHoaDonPK chiTietHoaDonPK = new ChiTietHoaDonPK(hoaDon, ct.getSanPham());
                 ct.setId(chiTietHoaDonPK);
                 tr.begin();
                 em.persist(ct);

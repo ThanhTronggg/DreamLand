@@ -7,7 +7,7 @@ import entity.Phim;
 
 import java.rmi.RemoteException;
 
-public class HoaDonServiceImpl extends GenericServiceImpl<HoaDon, Integer> implements service.HoaDonService {
+public class HoaDonServiceImpl extends GenericServiceImpl<HoaDon, String> implements service.HoaDonService {
 
     protected HoaDonDAO hoaDonDAO;
 

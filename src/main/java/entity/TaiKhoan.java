@@ -16,7 +16,6 @@ import java.util.List;
 public class TaiKhoan {
     @Id
     @Column(name = "ID")
-    @SequenceGenerator(name = "taikhoan_seq", sequenceName = "TaiKhoanSequence", allocationSize = 1)
     @EqualsAndHashCode.Include
     private String id;
 
@@ -28,6 +27,7 @@ public class TaiKhoan {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ma_Nhan_Vien", unique = true)
+    @ToString.Exclude
     private NhanVien nhanVien;
 
 }

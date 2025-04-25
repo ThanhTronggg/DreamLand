@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KhuyenMaiDAO extends GenericDAO<KhuyenMai, Integer> {
+public class KhuyenMaiDAO extends GenericDAO<KhuyenMai, String> {
     public KhuyenMaiDAO(EntityManager em, Class<KhuyenMai> cls) {
         super(em, cls);
     }

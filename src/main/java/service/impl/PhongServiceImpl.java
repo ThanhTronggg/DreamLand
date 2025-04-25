@@ -7,7 +7,7 @@ import entity.Phong;
 
 import java.rmi.RemoteException;
 
-public class PhongServiceImpl extends GenericServiceImpl<Phong, Integer> implements service.PhongService {
+public class PhongServiceImpl extends GenericServiceImpl<Phong, String> implements service.PhongService {
 
     protected PhongDAO phongDAO;
 

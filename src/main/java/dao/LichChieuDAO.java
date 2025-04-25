@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LichChieuDAO extends GenericDAO<LichChieu, Integer>{
+public class LichChieuDAO extends GenericDAO<LichChieu, String>{
 
     public LichChieuDAO(EntityManager em, Class<LichChieu> cls) {
         super(em, cls);

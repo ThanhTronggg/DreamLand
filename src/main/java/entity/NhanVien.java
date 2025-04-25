@@ -47,9 +47,11 @@ public class NhanVien {
     private String trangThai;
 
     @OneToOne(mappedBy = "nhanVien")
+    @ToString.Exclude
     private TaiKhoan taiKhoan;
 
     @OneToMany(mappedBy = "nhanVien")
+    @ToString.Exclude
     private Set<HoaDon> hoaDons;
 
 }

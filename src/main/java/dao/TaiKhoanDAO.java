@@ -13,7 +13,7 @@ import util.JPAUtil;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class TaiKhoanDAO extends GenericDAO<TaiKhoan, Integer>{
+public class TaiKhoanDAO extends GenericDAO<TaiKhoan, String>{
 
     public TaiKhoanDAO(EntityManager em, Class<TaiKhoan> cls) {
         super(em, cls);
@@ -36,11 +36,11 @@ public class TaiKhoanDAO extends GenericDAO<TaiKhoan, Integer>{
 
     public NhanVien getNhanVienTheoTaiKhoan(String username, boolean authentication) {
         if (getTaiKhoanTheoUsername(username) != null && authentication) {
-            String query = "SELECT tk.nhanVien FROM TaiKhoan tk WHERE tk.taiKhoan = :taiKhoan";
+            String query = "SELECT nv FROM NhanVien nv WHERE nv.taiKhoan.taiKhoan = :taiKhoan";
             try {
-                return em.createQuery(query, TaiKhoan.class)
+                return em.createQuery(query, NhanVien.class)
                         .setParameter("taiKhoan", username)
-                        .getSingleResult().getNhanVien();
+                        .getSingleResult();
             } catch (NoResultException e) {
                 return null;
             }

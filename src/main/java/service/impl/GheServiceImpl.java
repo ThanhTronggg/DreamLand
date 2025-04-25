@@ -10,7 +10,7 @@ import jakarta.persistence.NoResultException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class GheServiceImpl extends GenericServiceImpl<Ghe, Integer> implements service.GheService {
+public class GheServiceImpl extends GenericServiceImpl<Ghe, String> implements service.GheService {
 
     protected GheDAO gheDAO;
 

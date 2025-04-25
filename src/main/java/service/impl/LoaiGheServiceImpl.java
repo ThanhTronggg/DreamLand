@@ -7,7 +7,7 @@ import entity.Phim;
 
 import java.rmi.RemoteException;
 
-public class LoaiGheServiceImpl extends GenericServiceImpl<LoaiGhe, Integer> implements service.LoaiGheService {
+public class LoaiGheServiceImpl extends GenericServiceImpl<LoaiGhe, String> implements service.LoaiGheService {
 
     protected LoaiGheDAO loaiGheDAO;
 
