@@ -25,7 +25,7 @@ public class KhuyenMaiDAO extends GenericDAO<KhuyenMai, String> {
             String query = "SELECT km FROM KhuyenMai km " +
                     "WHERE :currentTime BETWEEN km.ngayBatDau AND km.ngayKetThuc " +
                     "AND km.tongHoaDonToiThieu <= :tongTien " +
-                    "ORDER BY km.phamTramKhuyenMai DESC";
+                    "ORDER BY km.phanTramKhuyenMai DESC";
             return em.createQuery(query, KhuyenMai.class)
                     .setParameter("currentTime", LocalDate.now())
                     .setParameter("tongTien", tongTien)

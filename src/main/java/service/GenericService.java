@@ -13,5 +13,5 @@ public interface GenericService<T, ID> extends Remote {
 
     T findById(ID id) throws RemoteException;
 
-    List<T> findAll() throws RemoteException;
+    List<T> getAll() throws RemoteException;
 }

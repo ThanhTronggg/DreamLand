@@ -22,7 +22,7 @@ public class Main2 {
             "Tiếng Anh", "Tiếng Pháp", "Tiếng Tây Ban Nha", "Tiếng Trung",
             "Tiếng Nhật", "Tiếng Đức", "Tiếng Hàn", "Tiếng Việt", "Tiếng Nga"
     };
-    private static final String[] tenLoaiGhe = {"Ghế thường", "Ghế VIP", "Ghế đôi SweetBox"};
+    private static final String[] tenLoaiGhe = {"Ghế thường", "Ghế VIP", "Ghế đôi Sweetbox"};
     private static final String[] events = {
             "Tết Nguyên Đán", "Giáng Sinh", "Black Friday", "Valentine",
             "Lễ Quốc Khánh", "Halloween", "Lễ Phục Sinh"
@@ -247,11 +247,17 @@ public class Main2 {
                     phoneNv = "0" + faker.number().numberBetween(100000000, 999999999);
                 } while (!uniquePhones.add(phoneNv));
                 nhanVien.setSoDienThoai(phoneNv);
-                nhanVien.setVaiTro(faker.options().option("Nhân viên bán vé", "Nhân viên quản lý"));
+                // Gán vai trò dựa trên username
+                if (username.equals("admin")) {
+                    nhanVien.setVaiTro("Nhân viên quản lý");
+                } else if (username.equals("trong")) {
+                    nhanVien.setVaiTro("Nhân viên bán vé");
+                } else {
+                    nhanVien.setVaiTro(faker.options().option("Nhân viên bán vé", "Nhân viên quản lý"));
+                }
                 nhanVien.setNgayBatDauLam(faker.date().past(365, java.util.concurrent.TimeUnit.DAYS)
                         .toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                nhanVien.setLuong(faker.number().randomDouble(2, 5000, 15000));
-                nhanVien.setTrangThai(faker.options().option("Active", "Inactive"));
+                nhanVien.setTrangThai(faker.options().option("Đang làm", "Đã nghỉ"));
                 nhanVien.setHoaDons(new HashSet<>());
                 taiKhoan.setNhanVien(nhanVien);
 
@@ -262,7 +268,7 @@ public class Main2 {
             }
 
             // Tạo KhachHang
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 1000; i++) {
                 KhachHang khachHang = new KhachHang();
                 khachHang.setMaKhachHang(getNextSequenceValue(em, "KhachHangSequence", "KH", 6));
                 khachHang.setTenKhachHang(faker.name().fullName());
@@ -353,12 +359,12 @@ public class Main2 {
             System.out.println("Tạo LichChieu...");
             tr.begin();
             List<LichChieu> lichChieus = new ArrayList<>();
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 1000; i++) {
                 LichChieu lichChieu = new LichChieu();
                 lichChieu.setMaLichChieu(getNextSequenceValue(em, "LichChieuSequence", "LC", 6));
                 Phim phim = phims.get(faker.random().nextInt(phims.size()));
                 Phong phong = phongs.get(faker.random().nextInt(phongs.size()));
-                LocalDate ngayChieu = LocalDate.now().plusDays(faker.random().nextInt(1, 30));
+                LocalDate ngayChieu = LocalDate.now().plusDays(faker.random().nextInt(1, 300));
                 LocalTime gioBatDau = LocalTime.of(faker.random().nextInt(8, 22), faker.random().nextInt(0, 59));
                 LocalTime gioKetThuc = gioBatDau.plus(phim.getThoiLuong(), ChronoUnit.MINUTES);
 
@@ -380,20 +386,22 @@ public class Main2 {
             List<HoaDon> hoaDons = new ArrayList<>();
             int totalVe = 0;
             int totalCTHD = 0;
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 1000; i++) {
                 HoaDon hoaDon = new HoaDon();
                 hoaDon.setMaHoaDon(getNextSequenceValue(em, "HoaDonSequence", "HD", 6));
                 NhanVien nhanVien = nhanViens.get(faker.random().nextInt(nhanViens.size()));
                 KhachHang khachHang = khachHangs.get(faker.random().nextInt(khachHangs.size()));
                 LichChieu lichChieu = lichChieus.get(faker.random().nextInt(lichChieus.size()));
+                KhuyenMai khuyenMai = khuyenMais.get(faker.random().nextInt(khuyenMais.size()));
 
-                hoaDon.setNgayDat(faker.date().past(30, java.util.concurrent.TimeUnit.DAYS)
+                hoaDon.setNgayDat(faker.date().past(300, java.util.concurrent.TimeUnit.DAYS)
                         .toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 int soGhe = faker.number().numberBetween(1, 5);
                 hoaDon.setSoGhe(soGhe);
                 hoaDon.setGhiChu(faker.lorem().sentence());
                 hoaDon.setNhanVien(nhanVien);
                 hoaDon.setKhachHang(khachHang);
+                hoaDon.setKhuyenMai(khuyenMai);
 
                 // Tạo ChiTietHoaDon
                 Set<ChiTietHoaDon> danhSachCTHD = new HashSet<>();

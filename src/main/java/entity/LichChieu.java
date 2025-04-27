@@ -3,6 +3,7 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "lich_chieu")
-public class LichChieu {
+public class LichChieu implements Serializable {
 
     @Id
     @SequenceGenerator(name = "lichchieu_seq", sequenceName = "LichChieuSequence", allocationSize = 1)

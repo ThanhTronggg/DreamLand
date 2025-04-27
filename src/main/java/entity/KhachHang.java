@@ -3,6 +3,7 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Setter
@@ -13,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "khach_hang")
-public class KhachHang {
+public class KhachHang implements Serializable {
 
     @Id
     @SequenceGenerator(name = "khachhang_seq", sequenceName = "KhachHangSequence", allocationSize = 1)

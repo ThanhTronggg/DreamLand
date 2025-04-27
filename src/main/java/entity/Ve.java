@@ -3,6 +3,7 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Setter
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ve")
-public class Ve {
+public class Ve implements Serializable {
 
     @Id
     @SequenceGenerator(name = "ve_seq", sequenceName = "VeSequence", allocationSize = 1)

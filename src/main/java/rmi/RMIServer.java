@@ -4,6 +4,7 @@ import dao.*;
 import entity.*;
 import service.*;
 import service.impl.*;
+import util.JPAUtil;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -28,6 +29,11 @@ public class RMIServer {
         TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO(TaiKhoan.class);
         VeDAO veDAO = new VeDAO(Ve.class);
 
+        DoanhThuDAO doanhThuDAO = new DoanhThuDAO(DoanhThu.class);
+        KhachHangThongKeDAO khachHangThongKeDAO = new KhachHangThongKeDAO(KhachHangThongKe.class);
+        PhimThongKeDAO phimThongKeDAO = new PhimThongKeDAO(PhimThongKe.class);
+        SanPhamThongKeDAO sanPhamThongKeDAO = new SanPhamThongKeDAO(SanPhamThongKe.class);
+
         ChiTietHoaDonService chiTietHoaDonService = new ChiTietHoaDonServiceImpl(chiTietHoaDonDAO);
         GheService gheService = new GheServiceImpl(gheDao);
         HoaDonService hoaDonService = new HoaDonServiceImpl(hoaDonDAO);
@@ -41,6 +47,12 @@ public class RMIServer {
         SanPhamService sanPhamService = new SanPhamServiceImpl(sanPhamDAO);
         TaiKhoanService taiKhoanService = new TaiKhoanServiceImpl(taiKhoanDAO);
         VeService veService = new VeServiceImpl(veDAO);
+        IdGeneratorService idGeneratorService = new IdGeneratorServiceImpl();
+
+        DoanhThuService doanhThuService = new DoanhThuServiceImpl(doanhThuDAO);
+        KhachHangThongKeService khachHangThongKeService = new KhachHangThongKeServiceImpl(khachHangThongKeDAO);
+        PhimThongKeService phimThongKeService = new PhimThongKeServiceImpl(phimThongKeDAO);
+        SanPhamThongKeService sanPhamThongKeService = new SanPhamThongKeServiceImpl(sanPhamThongKeDAO);
 
         context.bind("rmi://XXXXXX:9090/chiTietHoaDonService", chiTietHoaDonService);
         context.bind("rmi://XXXXXX:9090/gheService", gheService);
@@ -55,6 +67,12 @@ public class RMIServer {
         context.bind("rmi://XXXXXX:9090/sanPhamService", sanPhamService);
         context.bind("rmi://XXXXXX:9090/taiKhoanService", taiKhoanService);
         context.bind("rmi://XXXXXX:9090/veService", veService);
+        context.bind("rmi://XXXXXX:9090/idGeneratorService", idGeneratorService);
+
+        context.bind("rmi://XXXXXX:9090/doanhThuService", doanhThuService);
+        context.bind("rmi://XXXXXX:9090/khachHangThongKeService", khachHangThongKeService);
+        context.bind("rmi://XXXXXX:9090/phimThongKeService", phimThongKeService);
+        context.bind("rmi://XXXXXX:9090/sanPhamThongKeService", sanPhamThongKeService);
 
         System.out.println("Server starting...");
     }

@@ -3,17 +3,17 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Setter
 @Getter
-@ToString
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "tai_khoan")
-public class TaiKhoan {
+public class TaiKhoan implements Serializable {
     @Id
     @Column(name = "ID")
     @SequenceGenerator(name = "taikhoan_seq", sequenceName = "TaiKhoanSequence", allocationSize = 1)
@@ -27,8 +27,12 @@ public class TaiKhoan {
     private String matKhau;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ma_Nhan_Vien", unique = true)
+    @JoinColumn(name = "ma_nhan_vien", unique = true)
     @ToString.Exclude
     private NhanVien nhanVien;
 
+    @Override
+    public String toString() {
+        return taiKhoan;
+    }
 }

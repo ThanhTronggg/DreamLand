@@ -3,6 +3,7 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Setter
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "san_pham")
-public class SanPham {
+public class SanPham implements Serializable {
     @Id
     @SequenceGenerator(name = "sanpham_seq", sequenceName = "SanPhamSequence", allocationSize = 1)
     @Column(name = "ma_san_pham", nullable = false, unique = true)

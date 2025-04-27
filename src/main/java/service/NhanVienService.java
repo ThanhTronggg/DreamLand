@@ -1,7 +1,10 @@
 package service;
 
-import entity.ChiTietHoaDon;
 import entity.NhanVien;
 
-public interface NhanVienService extends GenericService<NhanVien,String> {
+import java.rmi.RemoteException;
+import java.util.List;
+
+public interface NhanVienService extends GenericService<NhanVien, String> {
+    List<NhanVien> searchNhanVien(String keyword) throws RemoteException;
 }

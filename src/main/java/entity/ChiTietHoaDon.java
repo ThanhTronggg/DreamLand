@@ -3,6 +3,8 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
 @ToString
@@ -10,7 +12,7 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "chi_tiet_hoa_don")
-public class ChiTietHoaDon {
+public class ChiTietHoaDon implements Serializable {
 
     @EmbeddedId
     private ChiTietHoaDonPK id;

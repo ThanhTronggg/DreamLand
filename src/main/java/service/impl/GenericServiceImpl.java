@@ -31,7 +31,7 @@ public abstract class GenericServiceImpl<T, ID> extends UnicastRemoteObject impl
         return genericDAO.findById(id);
     }
     @Override
-    public List<T> findAll() throws RemoteException {
+    public List<T> getAll() throws RemoteException {
         return genericDAO.findAll();
     }
 }

@@ -14,4 +14,14 @@ public class PhimServiceImpl extends GenericServiceImpl<Phim, String> implements
         super(phimDAO);
         this.phimDAO = phimDAO;
     }
+
+    @Override
+    public boolean exists(String maPhim) throws RemoteException {
+        return phimDAO.exists(maPhim);
+    }
+
+    @Override
+    public String getNextMaPhim() throws RemoteException {
+        return phimDAO.getNextMaPhim();
+    }
 }

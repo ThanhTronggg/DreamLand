@@ -3,6 +3,7 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Setter
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ghe")
-public class Ghe {
+public class Ghe implements Serializable {
 
     @Id
     @Column(name = "ma_ghe", nullable = false, unique = true)

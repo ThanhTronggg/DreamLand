@@ -2,18 +2,18 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Setter
 @Getter
-@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "phim")
-public class Phim {
+public class Phim implements Serializable {
 
     @Id
     @SequenceGenerator(name = "phim_seq", sequenceName = "PhimSequence", allocationSize = 1)
@@ -63,4 +63,9 @@ public class Phim {
     @OneToMany(mappedBy = "phim")
     @ToString.Exclude
     private Set<LichChieu> danhSachLichChieu;
+
+    @Override
+    public String toString() {
+        return tenPhim;
+    }
 }

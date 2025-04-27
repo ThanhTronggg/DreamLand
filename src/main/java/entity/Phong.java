@@ -3,17 +3,17 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Setter
 @Getter
-@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "phong")
-public class Phong {
+public class Phong implements Serializable {
 
     @Id
     @SequenceGenerator(name = "phong_seq", sequenceName = "PhongSequence", allocationSize = 1)
@@ -34,4 +34,9 @@ public class Phong {
     @OneToMany(mappedBy = "phong")
     @ToString.Exclude
     private Set<LichChieu> danhSachLichChieu;
+
+    @Override
+    public String toString() {
+        return tenPhong;
+    }
 }

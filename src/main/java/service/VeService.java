@@ -1,8 +1,13 @@
 package service;
 
-import entity.ChiTietHoaDon;
+import entity.LichChieu;
 import entity.Ve;
 
-public interface VeService extends GenericService<Ve,String> {
+import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
+public interface VeService extends GenericService<Ve, String> {
+    ArrayList<Ve> getVeTheoLichChieu(LichChieu lc) throws RemoteException;
 }

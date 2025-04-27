@@ -37,6 +37,7 @@ dependencies {
   implementation ("org.eclipse.parsson:parsson:1.1.7")
   implementation ('org.eclipse:yasson:3.0.4')
   implementation(files("libs/jBCrypt-0.4.1.jar"))
+  implementation(files("libs/jfreechart-1.5.3.jar"))
 
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

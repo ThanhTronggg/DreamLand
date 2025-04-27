@@ -2,6 +2,7 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "nhan_vien")
-public class NhanVien {
+public class NhanVien implements Serializable {
     @Id
     @SequenceGenerator(name = "nhanvien_seq", sequenceName = "NhanVienSequence", allocationSize = 1)
     @Column(name = "ma_nhan_vien", nullable = false, unique = true)
@@ -40,8 +41,6 @@ public class NhanVien {
 
     @Column(name = "ngay_bat_dau_lam", columnDefinition = "date", nullable = false)
     private LocalDate ngayBatDauLam;
-
-    private double luong;
 
     @Column(name = "trang_thai", columnDefinition = "varchar(255)", nullable = false)
     private String trangThai;

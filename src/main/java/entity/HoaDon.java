@@ -3,8 +3,10 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -15,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "hoa_don")
-public class HoaDon {
+public class HoaDon implements Serializable {
     @Id
     @SequenceGenerator(name = "hoadon_seq", sequenceName = "HoaDonSequence", allocationSize = 1)
     @Column(name = "ma_hoa_don", nullable = false, unique = true)

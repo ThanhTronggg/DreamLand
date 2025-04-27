@@ -15,4 +15,19 @@ public class KhachHangServiceImpl extends GenericServiceImpl<KhachHang, String> 
         super(khachHangDAO);
         this.khachHangDAO = khachHangDAO;
     }
+
+    @Override
+    public String capNhatTenVaEmailKhachHangTheoSoDienThoai(String soDienThoai, String tenKhachHangMoi, String emailMoi) throws RemoteException {
+        return khachHangDAO.capNhatTenVaEmailKhachHangTheoSoDienThoai(soDienThoai, tenKhachHangMoi, emailMoi);
+    }
+
+    @Override
+    public boolean kiemTraSoDienThoaiTonTai(String soDienThoai) throws RemoteException {
+        return khachHangDAO.kiemTraSoDienThoaiTonTai(soDienThoai);
+    }
+
+    @Override
+    public KhachHang timKhachHangTheoSoDienThoai(String soDienThoai) throws RemoteException {
+        return khachHangDAO.timKhachHangTheoSoDienThoai(soDienThoai);
+    }
 }
