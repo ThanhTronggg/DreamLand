@@ -302,7 +302,7 @@ public class Main2 {
                 km.setTenKhuyenMai(faker.options().option(events));
                 km.setNgayBatDau(LocalDate.now().minusDays(faker.random().nextInt(1, 30)));
                 km.setNgayKetThuc(LocalDate.now().plusDays(faker.random().nextInt(1, 30)));
-                km.setPhanTramKhuyenMai(faker.random().nextDouble(0.1, 0.5));
+                km.setPhanTramKhuyenMai(faker.random().nextDouble(0.01, 0.1));
                 km.setTongHoaDonToiThieu(faker.random().nextDouble(100000, 2000000));
 
                 SanPham sp = new SanPham();
