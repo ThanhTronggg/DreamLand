@@ -7,14 +7,10 @@ import service.IdGeneratorService;
 import util.JPAUtil;
 
 public class IdGeneratorServiceImpl extends UnicastRemoteObject implements IdGeneratorService {
-    private final EntityManager em;
-
-    public IdGeneratorServiceImpl(EntityManager em) throws RemoteException {
-        this.em = em;
-    }
+    private static final Object lock = new Object();
 
     public IdGeneratorServiceImpl() throws RemoteException {
-        this.em = JPAUtil.getEntityManager();
+        // Không lưu EntityManager làm thuộc tính để tránh chia sẻ
     }
 
     @Override
@@ -39,7 +35,7 @@ public class IdGeneratorServiceImpl extends UnicastRemoteObject implements IdGen
             case "SanPham": return "SP";
             case "Phim": return "P";
             case "LichChieu": return "LC";
-            default: throw new IllegalArgumentException("Unknown entity type: " + entityType);
+            default: throw new IllegalArgumentException("Loại thực thể không hợp lệ: " + entityType);
         }
     }
 
@@ -57,18 +53,27 @@ public class IdGeneratorServiceImpl extends UnicastRemoteObject implements IdGen
             case "SanPham": return 4;
             case "Phim": return 3;
             case "LichChieu": return 6;
-            default: throw new IllegalArgumentException("Unknown entity type: " + entityType);
+            default: throw new IllegalArgumentException("Loại thực thể không hợp lệ: " + entityType);
         }
     }
 
-
-    private String getNextSequenceValue(String sequenceName, String prefix, int padLength) {
-        try {
-            Long nextValue = (Long) em.createNativeQuery("SELECT NEXT VALUE FOR " + sequenceName).getSingleResult();
-            return prefix + String.format("%0" + padLength + "d", nextValue);
-        } catch (Exception e) {
-            System.err.println("Lỗi khi lấy sequence " + sequenceName + ": " + e.getMessage());
-            throw e;
+    private String getNextSequenceValue(String sequenceName, String prefix, int padLength) throws RemoteException {
+        synchronized (lock) { // Đồng bộ hóa truy cập sequence
+            EntityManager em = JPAUtil.getEntityManager();
+            try {
+                em.getTransaction().begin();
+                Long nextValue = (Long) em.createNativeQuery("SELECT NEXT VALUE FOR " + sequenceName)
+                        .getSingleResult();
+                em.getTransaction().commit();
+                return prefix + String.format("%0" + padLength + "d", nextValue);
+            } catch (Exception e) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                throw new RemoteException("Lỗi khi lấy sequence " + sequenceName + ": " + e.getMessage(), e);
+            } finally {
+                JPAUtil.closeEntityManager(em);
+            }
         }
     }
 }
