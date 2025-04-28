@@ -8,12 +8,17 @@ import util.JPAUtil;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import java.net.InetAddress;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class RMIServer {
     public static void main(String[] args) throws Exception {
         Context context = new InitialContext();
-        LocateRegistry.createRegistry(9090);
+        LocateRegistry.createRegistry(Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue()));
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        System.out.println(ip);
+        System.setProperty("java.rmi.server.hostname", EnvironmentVariable.IP.getValue()); // Thay bằng IP thực tế của server
 
         ChiTietHoaDonDAO chiTietHoaDonDAO = new ChiTietHoaDonDAO(ChiTietHoaDon.class);
         GheDAO gheDao = new GheDAO(Ghe.class);
@@ -54,25 +59,25 @@ public class RMIServer {
         PhimThongKeService phimThongKeService = new PhimThongKeServiceImpl(phimThongKeDAO);
         SanPhamThongKeService sanPhamThongKeService = new SanPhamThongKeServiceImpl(sanPhamThongKeDAO);
 
-        context.bind("rmi://XXXXXX:9090/chiTietHoaDonService", chiTietHoaDonService);
-        context.bind("rmi://XXXXXX:9090/gheService", gheService);
-        context.bind("rmi://XXXXXX:9090/hoaDonService", hoaDonService);
-        context.bind("rmi://XXXXXX:9090/khachHangService", khachHangService);
-        context.bind("rmi://XXXXXX:9090/khuyenMaiService", khuyenMaiService);
-        context.bind("rmi://XXXXXX:9090/lichChieuService", lichChieuService);
-        context.bind("rmi://XXXXXX:9090/loaiGheService", loaiGheService);
-        context.bind("rmi://XXXXXX:9090/nhanVienService", nhanVienService);
-        context.bind("rmi://XXXXXX:9090/phimService", phimService);
-        context.bind("rmi://XXXXXX:9090/phongService", phongService);
-        context.bind("rmi://XXXXXX:9090/sanPhamService", sanPhamService);
-        context.bind("rmi://XXXXXX:9090/taiKhoanService", taiKhoanService);
-        context.bind("rmi://XXXXXX:9090/veService", veService);
-        context.bind("rmi://XXXXXX:9090/idGeneratorService", idGeneratorService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/chiTietHoaDonService", chiTietHoaDonService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/gheService", gheService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/hoaDonService", hoaDonService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/khachHangService", khachHangService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/khuyenMaiService", khuyenMaiService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/lichChieuService", lichChieuService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/loaiGheService", loaiGheService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/nhanVienService", nhanVienService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/phimService", phimService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/phongService", phongService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/sanPhamService", sanPhamService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/taiKhoanService", taiKhoanService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/veService", veService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/idGeneratorService", idGeneratorService);
 
-        context.bind("rmi://XXXXXX:9090/doanhThuService", doanhThuService);
-        context.bind("rmi://XXXXXX:9090/khachHangThongKeService", khachHangThongKeService);
-        context.bind("rmi://XXXXXX:9090/phimThongKeService", phimThongKeService);
-        context.bind("rmi://XXXXXX:9090/sanPhamThongKeService", sanPhamThongKeService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/doanhThuService", doanhThuService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/khachHangThongKeService", khachHangThongKeService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/phimThongKeService", phimThongKeService);
+        context.bind("rmi://"+EnvironmentVariable.IP.getValue()+":"+Integer.parseInt(EnvironmentVariable.PORT_SERVER.getValue())+"/sanPhamThongKeService", sanPhamThongKeService);
 
         System.out.println("Server starting...");
     }

@@ -7,6 +7,7 @@ import entity.Phim;
 import entity.TaiKhoan;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 public class TaiKhoanServiceImpl extends GenericServiceImpl<TaiKhoan, String> implements service.TaiKhoanService {
 
